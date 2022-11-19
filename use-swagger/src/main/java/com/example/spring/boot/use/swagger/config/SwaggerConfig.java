@@ -21,13 +21,24 @@ import springfox.documentation.spring.web.plugins.Docket;
 @EnableOpenApi
 public class SwaggerConfig {
     @Bean
-    public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
+    public Docket docketGroup1() {
+        return new Docket(DocumentationType.OAS_30)
                 .apiInfo(apiInfo())
-                .groupName("分组名称")
+                .groupName("分组名称1")
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.example.spring.boot.use.swagger.controller"))
                 .paths(PathSelectors.any())
+                .build();
+    }
+
+    @Bean
+    public Docket docketGroup2() {
+        return new Docket(DocumentationType.OAS_30)
+                .apiInfo(apiInfo())
+                .groupName("分组名称2")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.example.spring.boot.use.swagger.controller"))
+                .paths(PathSelectors.ant("/api/use/swagger/test/get3/**"))
                 .build();
     }
 
