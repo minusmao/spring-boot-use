@@ -1,6 +1,7 @@
 package com.example.spring.boot.use.mybatis.plus.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.spring.boot.use.mybatis.plus.common.exception.OperationFailureException;
 import com.example.spring.boot.use.mybatis.plus.entity.PmsStudent;
 import com.example.spring.boot.use.mybatis.plus.mapper.PmsStudentMapper;
 import com.example.spring.boot.use.mybatis.plus.model.ResultVO;
@@ -21,17 +22,26 @@ public class PmsStudentServiceImpl extends ServiceImpl<PmsStudentMapper, PmsStud
 
     @Override
     public ResultVO<Object> saveStudent(PmsStudent pmsStudent) {
-        return save(pmsStudent) ? ResultVO.suc() : ResultVO.fail(500, "新增失败");
+        if (!save(pmsStudent)) {
+            throw new OperationFailureException("新增失败");
+        }
+        return ResultVO.suc();
     }
 
     @Override
     public ResultVO<Object> removeStudent(String id) {
-        return removeById(id) ? ResultVO.suc() : ResultVO.fail(500, "删除失败");
+        if (!removeById(id)) {
+            throw new OperationFailureException("删除失败");
+        }
+        return ResultVO.suc();
     }
 
     @Override
     public ResultVO<Object> updateStudent(PmsStudent pmsStudent) {
-        return updateById(pmsStudent) ? ResultVO.suc() : ResultVO.fail(500, "更新失败");
+        if (!updateById(pmsStudent)) {
+            throw new OperationFailureException("更新失败");
+        }
+        return ResultVO.suc();
     }
 
     @Override
