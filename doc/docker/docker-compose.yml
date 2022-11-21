@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  mysql:                               # 服务名称
+    image: mysql:5.7                   # 使用的镜像
+    restart: always                    # 自动重启
+    ports:                             # 端口映射
+      - 3306:3306
+    volumes:                           # 文件挂载
+      - ./mysql/conf:/etc/mysql        # 挂载配置文件
+      - ./mysql/log:/var/log/mysql     # 挂载日志目录
+      - ./mysql/data:/var/lib/mysql    # 挂载数据目录
+    command: [
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_unicode_ci",
+    ]
+    environment:                       # 环境变量
+      - TZ=Asia/Shanghai
+      - MYSQL_ROOT_PASSWORD=123456
+  redis:
+    image: redis:7.0.5
+    restart: always
+    privileged: true
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis/data:/data
+      - ./redis/conf/redis.conf:/usr/local/etc/redis/redis.conf    # 可使用文档中的redis.conf自定义密码
+      - ./redis/logs:/logs
+    command: ["redis-server","/usr/local/etc/redis/redis.conf"]
+    environment:
+      - TZ=Asia/Shanghai
+  rabbitmq:
+    image: rabbitmq:3.8.3-management
+    restart: always
+    privileged: true
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ./rabbitmq/data/:/var/lib/rabbitmq/
+      - ./rabbitmq/log:/var/log/rabbitmq/
+    environment:
+      - TZ=Asia/Shanghai

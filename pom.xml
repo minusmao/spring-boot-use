@@ -5,6 +5,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>use-swagger</module>
+        <module>use-mybatis-plus</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -20,6 +21,9 @@
     <properties>
         <java.version>17</java.version>
         <knife4j.version>3.0.3</knife4j.version>
+        <druid.version>1.2.6</druid.version>
+        <mybatis-plus.version>3.4.1</mybatis-plus.version>
+        <freemarker.version>2.3.30</freemarker.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -28,6 +32,30 @@
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
+            </dependency>
+            <!-- 阿里Druid数据库连接池 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <!-- mybatis-plus -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <!-- mybatis-plus-generator -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <!-- freemarker -->
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
