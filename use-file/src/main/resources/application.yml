@@ -1,0 +1,12 @@
+server:
+  port: 30000
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # spring-boot 2.6.0 以上默认为PATH_PATTERN_PARSER路径匹配，与swagger不兼容
+  servlet:
+    multipart:
+      max-request-size: 100MB    # 设置http请求报文最大限制（默认：10MB）
+      max-file-size: 80MB        # 设置文件上传最大限制（默认：1MB）
+file:
+  path: F:/test-file

@@ -6,6 +6,7 @@
     <modules>
         <module>use-swagger</module>
         <module>use-mybatis-plus</module>
+        <module>use-file</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
