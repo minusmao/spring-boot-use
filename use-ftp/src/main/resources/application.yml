@@ -1,0 +1,18 @@
+server:
+  port: 30000
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # spring-boot 2.6.0 以上默认为PATH_PATTERN_PARSER路径匹配，与swagger不兼容
+ftp:
+  host: 192.168.164.130
+  port: 21
+  username: admin
+  password: 123456
+  encoding: utf-8
+  root: /
+  workdir: /use
+  pool-max-total: 100
+  pool-min-idle: 2
+  pool-max-idle: 5
+  pool-max-wait-millis: 300

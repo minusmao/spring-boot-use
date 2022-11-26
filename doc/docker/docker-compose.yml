@@ -27,7 +27,7 @@ services:
       - ./redis/data:/data
       - ./redis/conf/redis.conf:/usr/local/etc/redis/redis.conf    # 可使用文档中的redis.conf自定义密码
       - ./redis/logs:/logs
-    command: ["redis-server","/usr/local/etc/redis/redis.conf"]
+    command: [ "redis-server","/usr/local/etc/redis/redis.conf" ]
     environment:
       - TZ=Asia/Shanghai
   rabbitmq:
@@ -54,4 +54,23 @@ services:
       - ./nginx/conf/conf.d:/etc/nginx/conf.d
       - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/html:/usr/share/nginx/html
-
+      - ./vsftp/data:/home/ftp
+  vsftp: # 参考链接：https://blog.csdn.net/m0_58684193/article/details/124817438
+    image: shourai/vsftpd-alpine:latest
+    restart: always
+    ports: # 踩坑：yml支持以60为底的浮点数，如果没有大于60的数，则20:20会被记为20*60+20，解决办法是用双引号括起来（参考链接：https://www.cnblogs.com/zerchin/p/14797983.html）
+      - "20:20"
+      - "21:21"
+      - 21100-21110:21100-21110
+    environment:
+      - FTP_USER=admin        # 自定义用户名
+      - FTP_PASS=123456       # 自定义用户密码
+      - PASV_ENABLE=YES
+      - PASV_ADDRESS=192.168.164.130    # 宿主机的IP
+      - PASV_MIN_PORT=21100
+      - PASV_MAX_PORT=21110
+      - ANON_ENABLE=NO
+      - NO_ANON_PASSWD=NO
+      - ANON_ROOT=/var/ftp
+    volumes:  # 踩坑：文件夹"./vsftp/data"不要在宿主机手动创建，否则容器存在权限问题，上传文件失败，docker-compose启动时会自动创建
+      - ./vsftp/data:/home/admin    # 与FTP_USER保持一致,即$FTP_USER的值是什么此处的目录就是什么

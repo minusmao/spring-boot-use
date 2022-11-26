@@ -7,6 +7,7 @@
         <module>use-swagger</module>
         <module>use-mybatis-plus</module>
         <module>use-file</module>
+        <module>use-ftp</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -25,6 +26,8 @@
         <druid.version>1.2.6</druid.version>
         <mybatis-plus.version>3.4.1</mybatis-plus.version>
         <freemarker.version>2.3.30</freemarker.version>
+        <commons-net.version>3.3</commons-net.version>
+        <commons-pool2.version>2.4.2</commons-pool2.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -57,6 +60,18 @@
                 <groupId>org.freemarker</groupId>
                 <artifactId>freemarker</artifactId>
                 <version>${freemarker.version}</version>
+            </dependency>
+            <!-- ftp -->
+            <dependency>
+                <groupId>commons-net</groupId>
+                <artifactId>commons-net</artifactId>
+                <version>${commons-net.version}</version>
+            </dependency>
+            <!-- 自定义连接池 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${commons-pool2.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
