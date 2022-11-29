@@ -30,18 +30,18 @@ services:
     command: [ "redis-server","/usr/local/etc/redis/redis.conf" ]
     environment:
       - TZ=Asia/Shanghai
-  rabbitmq:
-    image: rabbitmq:3.8.3-management
-    restart: always
-    privileged: true
-    ports:
-      - 5672:5672
-      - 15672:15672
-    volumes:
-      - ./rabbitmq/data/:/var/lib/rabbitmq/
-      - ./rabbitmq/log:/var/log/rabbitmq/
-    environment:
-      - TZ=Asia/Shanghai
+#  rabbitmq:
+#    image: rabbitmq:3.8.3-management
+#    restart: always
+#    privileged: true
+#    ports:
+#      - 5672:5672
+#      - 15672:15672
+#    volumes:
+#      - ./rabbitmq/data/:/var/lib/rabbitmq/
+#      - ./rabbitmq/log:/var/log/rabbitmq/
+#    environment:
+#      - TZ=Asia/Shanghai
   nginx:
     image: nginx:1.22.1
     restart: always
@@ -55,6 +55,8 @@ services:
       - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/html:/usr/share/nginx/html
       - ./vsftp/data:/home/ftp
+    environment:
+      - TZ=Asia/Shanghai
   vsftp: # 参考链接：https://blog.csdn.net/m0_58684193/article/details/124817438
     image: shourai/vsftpd-alpine:latest
     restart: always
@@ -63,6 +65,7 @@ services:
       - "21:21"
       - 21100-21110:21100-21110
     environment:
+      - TZ=Asia/Shanghai
       - FTP_USER=admin        # 自定义用户名
       - FTP_PASS=123456       # 自定义用户密码
       - PASV_ENABLE=YES
@@ -74,3 +77,40 @@ services:
       - ANON_ROOT=/var/ftp
     volumes:  # 踩坑：文件夹"./vsftp/data"不要在宿主机手动创建，否则容器存在权限问题，上传文件失败，docker-compose启动时会自动创建
       - ./vsftp/data:/home/admin    # 与FTP_USER保持一致,即$FTP_USER的值是什么此处的目录就是什么
+  fastdfs-tracker:
+    image: season/fastdfs:1.2
+    restart: always
+    network_mode: host    # 开放宿主机端口22122
+    volumes:
+      - ./fastdfs/tracker_data:/fastdfs/tracker/data
+    environment:
+      - TZ=Asia/Shanghai
+    command: tracker
+  fastdfs-storage:
+    # 踩坑：tracker返回storage的ip地址是docker虚拟网卡地址，导致外部client无法正常访问
+    # 解决方式1：网络使用host模式，TRACKER_SERVER=宿主机ip:port，宿主机防火墙开放22122、23000、8088端口
+    # 解决方式2：部署在不同服务器上
+    image: season/fastdfs:1.2
+    restart: always
+    network_mode: host    # 开放宿主机端口23000
+    volumes:
+      - ./fastdfs/conf/storage.conf:/fdfs_conf/storage.conf
+      - ./fastdfs/storage_data:/fastdfs/storage/data
+      - ./fastdfs/store_path:/fastdfs/store_path
+    environment:
+      - TZ=Asia/Shanghai
+      - TRACKER_SERVER=192.168.164.130:22122
+    command: storage
+    depends_on:
+      - fastdfs-tracker
+  fastdfs-nginx:
+    image: season/fastdfs:1.2
+    restart: always
+    network_mode: host    # 开放宿主机端口8088
+    volumes:
+      - ./fastdfs/conf/nginx.conf:/etc/nginx/conf/nginx.conf
+      - ./fastdfs/store_path:/fastdfs/store_path
+    environment:
+      - TZ=Asia/Shanghai
+      - TRACKER_SERVER=192.168.164.130:22122
+    command: nginx

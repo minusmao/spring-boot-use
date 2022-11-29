@@ -1,0 +1,37 @@
+server:
+  port: 30000
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # spring-boot 2.6.0 以上默认为PATH_PATTERN_PARSER路径匹配，与swagger不兼容
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:mysql://192.168.164.130:3306/spring_boot_use}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+    driver-class-name: ${DATASOURCE_DRIVER:com.mysql.cj.jdbc.Driver}
+    # 阿里Druid数据库连接池配置
+    druid:
+      initial-size: 5    #连接池初始化大小
+      min-idle: 10       #最小空闲连接数
+      max-active: 20     #最大连接数
+      web-stat-filter:
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*" #不统计这些请求数据
+      stat-view-servlet: #访问监控网页的登录用户名和密码
+        enabled: true    #开启监控页面
+        url-pattern: /druid/*
+        login-username: druid
+        login-password: druid
+logging:
+  level:
+    root: info    # 根目录（所有），不配置时默认为 info
+    com.example.spring.boot.use.mybatis.plus.mapper: debug    # 配置 Mapper 层的日志等级，可看见生成的 SQL 语句
+# fastDFS 配置
+fdfs:
+  connect-timeout: 60    # 连接超时
+  so-timeout: 15000      # 读取时间
+  thumb-image:           # 生成缩略图参数
+    width: 150
+    height: 150
+  tracker-list:          # 支持配置多个
+    - 192.168.164.130:22122
+  web-server-url: http://192.168.164.130:8088/
