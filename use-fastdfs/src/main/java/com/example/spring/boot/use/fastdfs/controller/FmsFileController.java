@@ -70,4 +70,13 @@ public class FmsFileController {
         return fmsFileService.downloadFileById(id);
     }
 
+    @PostMapping("/content")
+    @ApiOperation(value = "API-06-保存文件（文本文档）")
+    public ResultVO<FmsFile> saveContentFile(
+            @ApiParam("文本内容") @RequestParam String content,
+            @ApiParam("文件扩展名（默认为txt）") @RequestParam(defaultValue = "txt") String extension
+    ) {
+        return fmsFileService.saveContentFile(content, extension);
+    }
+
 }

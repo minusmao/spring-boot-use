@@ -27,4 +27,6 @@ public interface FmsFileService extends IService<FmsFile> {
 
     ResponseEntity<byte[]> downloadFileById(String id);
 
+    ResultVO<FmsFile> saveContentFile(String content, String extension);
+
 }

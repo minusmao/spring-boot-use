@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * <p>
@@ -43,7 +44,7 @@ public class FmsFileServiceImpl extends ServiceImpl<FmsFileMapper, FmsFile> impl
             e.printStackTrace();
             throw new OperationFailureException("文件上传失败");
         }
-        // 获取文件信息
+        // 保存文件信息
         FmsFile fileInfo = new FmsFile();
         fileInfo.setSize((int) file.getSize());
         fileInfo.setName(fastDFSUtil.getFilename(storePath));
@@ -112,6 +113,22 @@ public class FmsFileServiceImpl extends ServiceImpl<FmsFileMapper, FmsFile> impl
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);    // 二进制流
         headers.setContentLength(fileBytes.length);
         return ResponseEntity.ok().headers(headers).body(fileBytes);
+    }
+
+    @Override
+    public ResultVO<FmsFile> saveContentFile(String content, String extension) {
+        // 保存文本文件
+        byte[] contentBytes = content.getBytes(StandardCharsets.UTF_8);
+        StorePath storePath = fastDFSUtil.uploadFile(contentBytes, extension);
+        // 保存文件信息
+        FmsFile fileInfo = new FmsFile();
+        fileInfo.setSize(contentBytes.length);
+        fileInfo.setName(fastDFSUtil.getFilename(storePath));
+        fileInfo.setPath(storePath.getFullPath());
+        fileInfo.setUrl(fastDFSUtil.getRestAccessUrl(storePath));
+        save(fileInfo);
+
+        return ResultVO.suc(fileInfo);
     }
 
 }
