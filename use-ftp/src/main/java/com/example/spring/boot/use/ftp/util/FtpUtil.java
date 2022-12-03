@@ -2,6 +2,7 @@ package com.example.spring.boot.use.ftp.util;
 
 import com.example.spring.boot.use.ftp.config.FtpClientPool;
 import com.example.spring.boot.use.ftp.properties.FtpProperties;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.net.ftp.FTPClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -40,14 +41,8 @@ public class FtpUtil {
         FTPClient ftpClient = ftpClientPool.getFTPClient();
         // 生成文件名
         String filename = UUID.randomUUID().toString();
-        String originalFilename = file.getOriginalFilename();
-        if (originalFilename != null) {
-            // 获取后缀
-            int lastIndexOfPoint = originalFilename.lastIndexOf(".");
-            if (lastIndexOfPoint > 0) {
-                filename += originalFilename.substring(lastIndexOfPoint);
-            }
-        }
+        // 获得文件后缀
+        filename += '.' + FilenameUtils.getExtension(file.getOriginalFilename());
         // 开始进行文件上传
         try (InputStream input = file.getInputStream()) {
             // 执行文件传输
