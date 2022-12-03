@@ -1,5 +1,6 @@
 package com.example.spring.boot.use.file.common.util;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -22,16 +23,10 @@ public class FileUtil {
      */
     public static boolean fileWrite(MultipartFile file, String fileDirPath) {
         // 生成文件名和路径
-        String fileName = UUID.randomUUID().toString();
-        String originalFilename = file.getOriginalFilename();
-        if (originalFilename != null) {
-            // 获取后缀
-            int lastIndexOfPoint = originalFilename.lastIndexOf(".");
-            if (lastIndexOfPoint > 0) {
-                fileName += originalFilename.substring(lastIndexOfPoint);
-            }
-        }
-        String filePath = fileDirPath + "/" + fileName;
+        String filename = UUID.randomUUID().toString();
+        // 获得文件后缀
+        filename += '.' + FilenameUtils.getExtension(file.getOriginalFilename());
+        String filePath = fileDirPath + "/" + filename;
         // 创建文件夹
         File fileDir = new File(fileDirPath);
         if (!fileDir.exists()) {

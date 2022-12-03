@@ -28,6 +28,7 @@
         <druid.version>1.2.6</druid.version>
         <mybatis-plus.version>3.4.1</mybatis-plus.version>
         <freemarker.version>2.3.30</freemarker.version>
+        <commons-io.version>2.11.0</commons-io.version>
         <commons-net.version>3.3</commons-net.version>
         <commons-pool2.version>2.4.2</commons-pool2.version>
         <fastdfs-client.version>1.27.2</fastdfs-client.version>
@@ -63,6 +64,12 @@
                 <groupId>org.freemarker</groupId>
                 <artifactId>freemarker</artifactId>
                 <version>${freemarker.version}</version>
+            </dependency>
+            <!-- commons-io -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
             </dependency>
             <!-- ftp -->
             <dependency>
