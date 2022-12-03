@@ -48,8 +48,8 @@ public class FmsFileServiceImpl extends ServiceImpl<FmsFileMapper, FmsFile> impl
         FmsFile fileInfo = new FmsFile();
         fileInfo.setSize((int) file.getSize());
         fileInfo.setName(fastDFSUtil.getFilename(storePath));
+        fileInfo.setType(file.getContentType());
         fileInfo.setPath(storePath.getFullPath());
-        fileInfo.setUrl(fastDFSUtil.getRestAccessUrl(storePath));
         save(fileInfo);
 
         return ResultVO.suc(fileInfo);
@@ -124,8 +124,8 @@ public class FmsFileServiceImpl extends ServiceImpl<FmsFileMapper, FmsFile> impl
         FmsFile fileInfo = new FmsFile();
         fileInfo.setSize(contentBytes.length);
         fileInfo.setName(fastDFSUtil.getFilename(storePath));
+        fileInfo.setType("text/plain");
         fileInfo.setPath(storePath.getFullPath());
-        fileInfo.setUrl(fastDFSUtil.getRestAccessUrl(storePath));
         save(fileInfo);
 
         return ResultVO.suc(fileInfo);

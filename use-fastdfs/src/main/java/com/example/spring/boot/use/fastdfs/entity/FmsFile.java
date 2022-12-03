@@ -36,6 +36,9 @@ public class FmsFile implements Serializable {
     @ApiModelProperty(value = "文件名称")
     private String name;
 
+    @ApiModelProperty(value = "文件类型（一般为HttpHeader中的Content-Type）")
+    private String type;
+
     @ApiModelProperty(value = "文件路径")
     private String path;
 
