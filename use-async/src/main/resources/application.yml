@@ -1,0 +1,28 @@
+server:
+  port: 30000
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # spring-boot 2.6.0 以上默认为PATH_PATTERN_PARSER路径匹配，与swagger不兼容
+  # 默认线程池：https://zhuanlan.zhihu.com/p/85855282
+  task:
+    # 配置spring-boot创建的线程池ThreadPoolTaskExecutor（@Async默认使用），由TaskExecutionAutoConfiguration注入
+    execution:
+      pool:
+        core-size: 8          # 核心线程数（默认8）
+        max-size: 20          # 最大线程数（默认Integer.MAX_VALUE），当工作队列填满，则增加线程数到max-size
+        queue-capacity: 50    # 队列容量（默认Integer.MAX_VALUE）
+        keep-alive: 60s       # 线程在终止之前可以保持空闲的时间限制（默认60s）
+    # 配置spring-boot创建的线程池ThreadPoolTaskScheduler（@Scheduled默认使用），由TaskSchedulingAutoConfiguration注入
+    # 笔记：默认处理@Scheduled的线程池只有一个线程，可以使用@Async+@Scheduled达到多线程，也可在此处配置大小（区别是后者对同一方法串行，不同方法并行）
+    # 参考文档：https://blog.csdn.net/ElegantApple/article/details/124007116
+    scheduling:
+      pool:
+        size: 1                          # 线程池大小（默认1）
+      thread-name-prefix: scheduling-    # 线程名称前缀（默认scheduling-）
+# 自定义线程池配置
+thread-pool:
+  coreSize: 20
+  maxSize: 200
+  keepAliveTime: 10
+  dequeSize: 10000

@@ -9,6 +9,7 @@
         <module>use-file</module>
         <module>use-ftp</module>
         <module>use-fastdfs</module>
+        <module>use-async</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
