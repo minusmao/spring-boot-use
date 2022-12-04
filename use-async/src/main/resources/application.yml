@@ -18,8 +18,11 @@ spring:
     # 参考文档：https://blog.csdn.net/ElegantApple/article/details/124007116
     scheduling:
       pool:
-        size: 1                          # 线程池大小（默认1）
+        size: 8                          # 线程池大小（默认1）
       thread-name-prefix: scheduling-    # 线程名称前缀（默认scheduling-）
+      shutdown:
+        await-termination: true          # 执行程序是否应等待计划任务在关机时完成。
+        await-termination-period: 300s   # 执行程序等待剩余任务完成的最长时间。
 # 自定义线程池配置
 thread-pool:
   coreSize: 20
