@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * 文件下载
@@ -40,7 +39,7 @@ public class DownloadController {
     @ApiOperation(value = "API-02-文件下载方式2")
     public ResponseEntity<InputStreamResource> downloadFile(
             @ApiParam("文件名") @RequestParam String filename
-    ) throws IOException {
+    ) {
         return downloadService.downloadFile(filename);
     }
 

@@ -73,21 +73,34 @@ public class DownloadServiceImpl implements DownloadService {
     }
 
     @Override
-    public ResponseEntity<InputStreamResource> downloadFile(String filename) throws IOException {
+    public ResponseEntity<InputStreamResource> downloadFile(String filename) {
         String downloadFilePath = filePath + "/" + filename;
         FileSystemResource file = new FileSystemResource(downloadFilePath);
+        // 文件信息处理
+        long fileContentLength;
+        InputStreamResource inputStreamResource;
+        try {
+            fileContentLength = file.contentLength();
+            inputStreamResource = new InputStreamResource(file.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("文件流处理异常");
+        }
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-        headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", file.getFilename()));
+        // 文件名URL编码
+        String filenameEncode = URLEncoder.encode(filename, StandardCharsets.UTF_8);
+//        headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", filenameEncode));
+        headers.setContentDispositionFormData("attachment", filenameEncode);    // 功能同上
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
 
         return ResponseEntity
                 .ok()
                 .headers(headers)
-                .contentLength(file.contentLength())
-                .contentType(MediaType.parseMediaType("application/octet-stream"))
-                .body(new InputStreamResource(file.getInputStream()));
+                .contentLength(fileContentLength)                   // 也可在headers.setContentLength()设置
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)    // 也可在headers.setContentType()设置
+                .body(inputStreamResource);
     }
 
     @Override
@@ -104,13 +117,20 @@ public class DownloadServiceImpl implements DownloadService {
         if (!resource.exists()) {
             throw new ResourceNotFoundException("资源不存在");
         }
+        // 文件信息处理
+        String filename = resource.getFilename();
+        if (filename == null) {
+            filename = "download";
+        }
         // 设置响应头
         response.reset();
         response.setContentType("application/octet-stream");
         response.setCharacterEncoding("UTF-8");
         response.addHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         response.addHeader("Pragma", "no-cache");
-        response.addHeader("Content-Disposition", "attachment;filename=test.txt");
+        // 文件名URL编码
+        String filenameEncode = URLEncoder.encode(filename, StandardCharsets.UTF_8);
+        response.addHeader("Content-Disposition", String.format("attachment; filename=%s", filenameEncode));
         // 输出响应流
         try(InputStream inputStream = resource.getInputStream();
             OutputStream outputStream = response.getOutputStream()) {

@@ -4,7 +4,6 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * 文件下载
@@ -16,7 +15,7 @@ public interface DownloadService {
 
     void downloadFile(String filename, HttpServletResponse response);
 
-    ResponseEntity<InputStreamResource> downloadFile(String filename) throws IOException;
+    ResponseEntity<InputStreamResource> downloadFile(String filename);
 
     void downloadResource(Integer mode, HttpServletResponse response);
 
