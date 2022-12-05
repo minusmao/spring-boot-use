@@ -10,6 +10,7 @@
         <module>use-ftp</module>
         <module>use-fastdfs</module>
         <module>use-async</module>
+        <module>use-valid</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -32,6 +33,7 @@
         <commons-net.version>3.3</commons-net.version>
         <commons-pool2.version>2.4.2</commons-pool2.version>
         <fastdfs-client.version>1.27.2</fastdfs-client.version>
+        <hutool.version>5.8.10</hutool.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -88,6 +90,12 @@
                 <groupId>com.github.tobato</groupId>
                 <artifactId>fastdfs-client</artifactId>
                 <version>${fastdfs-client.version}</version>
+            </dependency>
+            <!-- Hutool -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
