@@ -1,0 +1,46 @@
+server:
+  port: 30000
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # spring-boot 2.6.0 以上默认为PATH_PATTERN_PARSER路径匹配，与swagger不兼容
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:mysql://192.168.164.130:3306/spring_boot_use}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+    driver-class-name: ${DATASOURCE_DRIVER:com.mysql.cj.jdbc.Driver}
+    # 阿里Druid数据库连接池配置
+    druid:
+      initial-size: 5    #连接池初始化大小
+      min-idle: 10       #最小空闲连接数
+      max-active: 20     #最大连接数
+      web-stat-filter:
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*" #不统计这些请求数据
+      stat-view-servlet: #访问监控网页的登录用户名和密码
+        enabled: true    #开启监控页面
+        url-pattern: /druid/*
+        login-username: druid
+        login-password: druid
+  # 默认线程池：https://zhuanlan.zhihu.com/p/85855282
+  task:
+    # 配置spring-boot创建的线程池ThreadPoolTaskExecutor（@Async默认使用），由TaskExecutionAutoConfiguration注入
+    execution:
+      pool:
+        core-size: 8          # 核心线程数（默认8）
+        max-size: 20          # 最大线程数（默认Integer.MAX_VALUE），当工作队列填满，则增加线程数到max-size
+        queue-capacity: 50    # 队列容量（默认Integer.MAX_VALUE）
+        keep-alive: 60s       # 线程在终止之前可以保持空闲的时间限制（默认60s）
+    # 配置spring-boot创建的线程池ThreadPoolTaskScheduler（@Scheduled默认使用），由TaskSchedulingAutoConfiguration注入
+    # 笔记：默认处理@Scheduled的线程池只有一个线程，可以使用@Async+@Scheduled达到多线程，也可在此处配置大小（区别是后者对同一方法串行，不同方法并行）
+    # 参考文档：https://blog.csdn.net/ElegantApple/article/details/124007116
+    scheduling:
+      pool:
+        size: 8                          # 线程池大小（默认1）
+      thread-name-prefix: scheduling-    # 线程名称前缀（默认scheduling-）
+      shutdown:
+        await-termination: true          # 执行程序是否应等待计划任务在关机时完成
+        await-termination-period: 300s   # 执行程序等待剩余任务完成的最长时间
+logging:
+  level:
+    root: info    # 根目录（所有），不配置时默认为 info
+    com.example.spring.boot.use.mybatis.plus.mapper: debug    # 配置 Mapper 层的日志等级，可看见生成的 SQL 语句

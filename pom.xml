@@ -10,6 +10,7 @@
         <module>use-ftp</module>
         <module>use-fastdfs</module>
         <module>use-async</module>
+        <module>use-schedule</module>
         <module>use-valid</module>
     </modules>
     <parent>
