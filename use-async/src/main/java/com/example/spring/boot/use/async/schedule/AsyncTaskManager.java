@@ -73,13 +73,13 @@ public interface AsyncTaskManager {
     ScheduledFuture<?> executeDelayHours(TimerTask task, long hours);
 
     /**
-     * 执行异步任务（延时执行：指定时间点，如果指定时间点小于当前时间则立即执行）
+     * 执行异步任务（指定时间点执行，如果指定时间点小于当前时间则立即执行）
      *
      * @param task     任务
      * @param dateTime 时间点
      * @return 任务ScheduledFuture
      */
-    ScheduledFuture<?> executeDelayHours(TimerTask task, LocalDateTime dateTime);
+    ScheduledFuture<?> execute(TimerTask task, LocalDateTime dateTime);
 
     /**
      * 尝试取消ScheduledFuture任务的执行

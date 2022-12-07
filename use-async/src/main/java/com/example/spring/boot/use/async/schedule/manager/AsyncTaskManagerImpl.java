@@ -59,7 +59,7 @@ public class AsyncTaskManagerImpl implements AsyncTaskManager {
     }
 
     @Override
-    public ScheduledFuture<?> executeDelayHours(TimerTask task, LocalDateTime dateTime) {
+    public ScheduledFuture<?> execute(TimerTask task, LocalDateTime dateTime) {
         return threadPoolTaskScheduler.schedule(task, dateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
