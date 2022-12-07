@@ -38,4 +38,11 @@ public class TestController {
         return ResultVO.suc();
     }
 
+    @GetMapping("/asyncManager")
+    @ApiOperation(value = "API-03-测试异步任务管理")
+    public ResultVO<Object> testAsyncTaskManager() {
+        testService.testAsyncTaskManager();
+        return ResultVO.suc();
+    }
+
 }

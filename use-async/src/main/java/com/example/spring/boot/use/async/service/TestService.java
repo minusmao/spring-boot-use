@@ -12,4 +12,6 @@ public interface TestService {
 
     void testCompletableFuture();
 
+    void testAsyncTaskManager();
+
 }

@@ -1,5 +1,7 @@
 package com.example.spring.boot.use.async.service.impl;
 
+import com.example.spring.boot.use.async.schedule.AsyncTaskFactory;
+import com.example.spring.boot.use.async.schedule.AsyncTaskManager;
 import com.example.spring.boot.use.async.service.AsyncService;
 import com.example.spring.boot.use.async.service.CompletableFutureService;
 import com.example.spring.boot.use.async.service.TestService;
@@ -25,6 +27,9 @@ public class TestServiceImpl implements TestService {
     @Autowired
     private CompletableFutureService completableFutureService;
 
+    @Autowired
+    private AsyncTaskManager asyncTaskManager;
+
     @Override
     public void testAsync() {
         log.info("testAsync");
@@ -35,6 +40,12 @@ public class TestServiceImpl implements TestService {
     @Override
     public void testCompletableFuture() {
         completableFutureService.testCompletableFuture();
+    }
+
+    @Override
+    public void testAsyncTaskManager() {
+        asyncTaskManager.execute(AsyncTaskFactory.recordLogin());
+        asyncTaskManager.executeDelaySecond(AsyncTaskFactory.recordOperation(), 10);
     }
 
 }
