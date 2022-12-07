@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.ScheduledFuture;
+
 /**
  * 测试
  *
@@ -45,7 +47,12 @@ public class TestServiceImpl implements TestService {
     @Override
     public void testAsyncTaskManager() {
         asyncTaskManager.execute(AsyncTaskFactory.recordLogin());
-        asyncTaskManager.executeDelaySecond(AsyncTaskFactory.recordOperation(), 10);
+        ScheduledFuture<?> taskFuture = asyncTaskManager.executeDelaySecond(AsyncTaskFactory.recordOperation(), 10);
+        // 测试取消异步任务
+        if(asyncTaskManager.cancelTaskFuture(taskFuture)) {
+            log.info("取消异步任务成功");
+            asyncTaskManager.executeDelaySecond(AsyncTaskFactory.recordOperation(), 5);
+        }
     }
 
 }

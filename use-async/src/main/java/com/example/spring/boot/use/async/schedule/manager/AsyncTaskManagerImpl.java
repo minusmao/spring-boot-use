@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.TimerTask;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -33,33 +34,38 @@ public class AsyncTaskManagerImpl implements AsyncTaskManager {
     }
 
     @Override
-    public void executeDelay(TimerTask task, long delay, TimeUnit unit) {
-        threadPoolTaskScheduler.getScheduledThreadPoolExecutor().schedule(task, delay, unit);
+    public ScheduledFuture<?> executeDelay(TimerTask task, long delay, TimeUnit unit) {
+        return threadPoolTaskScheduler.getScheduledThreadPoolExecutor().schedule(task, delay, unit);
     }
 
     @Override
-    public void executeDelayMillisecond(TimerTask task, long milliseconds) {
-        executeDelay(task, milliseconds, TimeUnit.MILLISECONDS);
+    public ScheduledFuture<?> executeDelayMillisecond(TimerTask task, long milliseconds) {
+        return executeDelay(task, milliseconds, TimeUnit.MILLISECONDS);
     }
 
     @Override
-    public void executeDelaySecond(TimerTask task, long seconds) {
-        executeDelay(task, seconds, TimeUnit.SECONDS);
+    public ScheduledFuture<?> executeDelaySecond(TimerTask task, long seconds) {
+        return executeDelay(task, seconds, TimeUnit.SECONDS);
     }
 
     @Override
-    public void executeDelayMinutes(TimerTask task, long minutes) {
-        executeDelay(task, minutes, TimeUnit.MINUTES);
+    public ScheduledFuture<?> executeDelayMinutes(TimerTask task, long minutes) {
+        return executeDelay(task, minutes, TimeUnit.MINUTES);
     }
 
     @Override
-    public void executeDelayHours(TimerTask task, long hours) {
-        executeDelay(task, hours, TimeUnit.HOURS);
+    public ScheduledFuture<?> executeDelayHours(TimerTask task, long hours) {
+        return executeDelay(task, hours, TimeUnit.HOURS);
     }
 
     @Override
-    public void executeDelayHours(TimerTask task, LocalDateTime dateTime) {
-        threadPoolTaskScheduler.schedule(task, dateTime.atZone(ZoneId.systemDefault()).toInstant());
+    public ScheduledFuture<?> executeDelayHours(TimerTask task, LocalDateTime dateTime) {
+        return threadPoolTaskScheduler.schedule(task, dateTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    @Override
+    public boolean cancelTaskFuture(ScheduledFuture<?> taskFuture) {
+        return taskFuture.cancel(true);
     }
 
 }
