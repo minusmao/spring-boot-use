@@ -10,7 +10,7 @@ public class ApiConst {
 
     private static final String API = "api";
     private static final String PROJECT_PREFIX = "use";
-    private static final String MODULE_PREFIX = "swagger";
+    private static final String MODULE_PREFIX = "valid";
 
     public static final String API_URL = API + "/" + PROJECT_PREFIX + "/" + MODULE_PREFIX;
 

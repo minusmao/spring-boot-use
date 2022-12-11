@@ -21,7 +21,7 @@ public class ValidUtil {
     /**
      * 手动执行参数校验
      *
-     * @param object 带校验对象
+     * @param object 待校验对象
      * @param groups 分组
      * @return 校验结果
      */
@@ -32,7 +32,7 @@ public class ValidUtil {
     /**
      * 手动执行参数校验（获得校验message列表）
      *
-     * @param object 带校验对象
+     * @param object 待校验对象
      * @param groups 分组
      * @return 校验message列表
      */
@@ -43,7 +43,7 @@ public class ValidUtil {
     /**
      * 手动执行参数校验（查看是否校验通过）
      *
-     * @param object 带校验对象
+     * @param object 待校验对象
      * @param groups 分组
      * @return 是否校验通过
      */
