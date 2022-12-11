@@ -12,6 +12,7 @@
         <module>use-async</module>
         <module>use-schedule</module>
         <module>use-valid</module>
+        <module>use-websocket</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

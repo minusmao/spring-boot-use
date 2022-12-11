@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试websocket</title>
+</head>
+<body>
+<h3>hello socket</h3>
+<div id="option">
+    <div><label for="userId">【userId】：</label><input id="userId" name="userId" type="text" value="10"></div>
+    <div><label for="toUserId">【toUserId】：</label><input id="toUserId" name="toUserId" type="text" value="20"></div>
+    <div><label for="contentText">【content】：</label><input id="contentText" name="contentText" type="text"
+                                                           value="hello websocket"></div>
+
+    <div id="open" style="display: block">【操作】:<a href="#nowhere" onclick="openSocket()">开启socket</a></div>
+    <div id="close" style="display: none">【操作】:<a href="#nowhere" onclick="closeSocket()">关闭socket</a></div>
+    <div id="send" style="display: none">【操作】:<a href="#nowhere" onclick="sendMessage()">发送消息</a></div>
+</div>
+<div>
+    <p id="chat"></p>
+</div>
+</body>
+<script>
+    let socket;
+
+    function openSocket() {
+        if (typeof (WebSocket) == "undefined") {
+            console.log("您的浏览器不支持WebSocket");
+        } else {
+            console.log("您的浏览器支持WebSocket");
+            //实现化WebSocket对象，指定要连接的服务器地址与端口  建立连接
+            const userId = document.getElementById('userId').value;
+            const socketUrl = "ws://127.0.0.1:30000/api/use/websocket/test/" + userId;
+            console.log(socketUrl);
+            if (socket != null) {
+                socket.close();
+                socket = null;
+            }
+            socket = new WebSocket(socketUrl);
+            //打开事件
+            socket.onopen = function () {
+                console.log("websocket已打开");
+            };
+            //获得消息事件
+            socket.onmessage = function (msg) {
+                const serverMsg = "收到服务端信息：" + msg.data;
+                console.log(serverMsg);
+                const jsonObj = JSON.parse(msg.data)
+                //发现消息进入    开始处理前端触发逻辑
+                document.getElementById("chat").innerHTML +=
+                    "<span style='color: red'>" + jsonObj.sender + "</span>" +
+                    "<span style='color: blue'>[" + jsonObj.time + "]:</span></br>" + jsonObj.context + "</br></br>"
+            };
+            //关闭事件
+            socket.onclose = function () {
+                console.log("websocket已关闭");
+                socket = null;
+                // 隐藏显示按钮
+                document.getElementById("open").style.display = "block";
+                document.getElementById("close").style.display = "none";
+                document.getElementById("send").style.display = "none";
+                document.getElementById("chat").innerHTML = null;
+            };
+            //发生了错误事件
+            socket.onerror = function () {
+                console.log("websocket发生了错误");
+                socket = null;
+                // 隐藏显示按钮
+                document.getElementById("open").style.display = "block";
+                document.getElementById("close").style.display = "none";
+                document.getElementById("send").style.display = "none";
+            }
+
+            // 隐藏显示按钮
+            document.getElementById("open").style.display = "none";
+            document.getElementById("close").style.display = "block";
+            document.getElementById("send").style.display = "block";
+        }
+    }
+
+    function closeSocket() {
+        if (socket != null) {
+            socket.close();
+            socket = null;
+        }
+
+        // 隐藏显示按钮
+        document.getElementById("open").style.display = "block";
+        document.getElementById("close").style.display = "none";
+        document.getElementById("send").style.display = "none";
+    }
+
+    function sendMessage() {
+        if (typeof (WebSocket) == "undefined") {
+            console.log("您的浏览器不支持WebSocket");
+        } else {
+            console.log("您的浏览器支持WebSocket");
+            const userId = document.getElementById('userId').value;
+            const toUserId = document.getElementById('toUserId').value;
+            const contentText = document.getElementById('contentText').value;
+            const message = {
+                "sender": userId,
+                "receiver": toUserId,
+                "context": contentText,
+                "time": formatTime(new Date())
+            }
+            socket.send(JSON.stringify(message));
+
+            // 显示发送消息
+            document.getElementById("chat").innerHTML +=
+                "<span style='color: red'>" + message.sender + "</span>" +
+                "<span style='color: blue'>[" + message.time + "]:</span></br>" + message.context + "</br></br>"
+        }
+    }
+
+    // 格式化时间：补零
+    function zero(t) {
+        return t > 9 ? t : ('0' + t);
+    }
+
+    // 格式化时间
+    function formatTime(time) {
+        // 1.获取到年 月 日 小时 分钟 秒，并且给需要的时间 补0
+        const year = time.getFullYear();
+        const month = zero(time.getMonth() + 1);
+        const day = zero(time.getDate());
+        const hours = zero(time.getHours());
+        const mins = zero(time.getMinutes());
+        const seconds = zero(time.getSeconds());
+        // 2.拼接字符串
+        return year + '-' + month + '-' + day + ' ' + hours + ':' + mins + ':' + seconds;
+    }
+
+</script>
+</html>
