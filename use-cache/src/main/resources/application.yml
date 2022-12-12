@@ -1,0 +1,32 @@
+server:
+  port: 30000
+spring:
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:mysql://192.168.164.130:3306/spring_boot_use}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+    driver-class-name: ${DATASOURCE_DRIVER:com.mysql.cj.jdbc.Driver}
+    # 阿里Druid数据库连接池配置
+    druid:
+      initial-size: 5    #连接池初始化大小
+      min-idle: 10       #最小空闲连接数
+      max-active: 20     #最大连接数
+      web-stat-filter:
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*" #不统计这些请求数据
+      stat-view-servlet: #访问监控网页的登录用户名和密码
+        enabled: true    #开启监控页面
+        url-pattern: /druid/*
+        login-username: druid
+        login-password: druid
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # spring-boot 2.6.0 以上默认为PATH_PATTERN_PARSER路径匹配，与swagger不兼容
+  redis:
+    host: ${REDIS_HOST}
+    password: ${REDIS_PASSWORD}
+    port: ${REDIS_PORT}
+    timeout: 3000
+  cache:
+    type: redis    # 设置simple则使用本地缓存（底层使用ConcurrentHashMap）
+    redis:
+      cache-null-values: true    # 缓存null值，防止缓存穿透，默认已开启
