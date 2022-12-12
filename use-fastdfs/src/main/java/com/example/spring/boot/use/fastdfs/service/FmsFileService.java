@@ -3,7 +3,6 @@ package com.example.spring.boot.use.fastdfs.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.spring.boot.use.fastdfs.entity.FmsFile;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.spring.boot.use.fastdfs.model.ResultVO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,16 +16,16 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface FmsFileService extends IService<FmsFile> {
 
-    ResultVO<FmsFile> uploadFile(MultipartFile file);
+    FmsFile uploadFile(MultipartFile file);
 
-    ResultVO<FmsFile> removeFileById(String id);
+    void removeFileById(String id);
 
-    ResultVO<FmsFile> getFileById(String id);
+    FmsFile getFileById(String id);
 
-    ResultVO<Page<FmsFile>> pageFile(Page<FmsFile> page);
+    Page<FmsFile> pageFile(Page<FmsFile> page);
 
     ResponseEntity<byte[]> downloadFileById(String id);
 
-    ResultVO<FmsFile> saveContentFile(String content, String extension);
+    FmsFile saveContentFile(String content, String extension);
 
 }

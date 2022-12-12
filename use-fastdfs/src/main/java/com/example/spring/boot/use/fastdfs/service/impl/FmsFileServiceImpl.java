@@ -5,7 +5,6 @@ import com.example.spring.boot.use.fastdfs.common.exception.OperationFailureExce
 import com.example.spring.boot.use.fastdfs.common.exception.ResourceNotFoundException;
 import com.example.spring.boot.use.fastdfs.entity.FmsFile;
 import com.example.spring.boot.use.fastdfs.mapper.FmsFileMapper;
-import com.example.spring.boot.use.fastdfs.model.ResultVO;
 import com.example.spring.boot.use.fastdfs.service.FmsFileService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.spring.boot.use.fastdfs.util.FastDFSUtil;
@@ -35,7 +34,7 @@ public class FmsFileServiceImpl extends ServiceImpl<FmsFileMapper, FmsFile> impl
     private FastDFSUtil fastDFSUtil;
 
     @Override
-    public ResultVO<FmsFile> uploadFile(MultipartFile file) {
+    public FmsFile uploadFile(MultipartFile file) {
         // 上传文件
         StorePath storePath;
         try {
@@ -52,11 +51,11 @@ public class FmsFileServiceImpl extends ServiceImpl<FmsFileMapper, FmsFile> impl
         fileInfo.setPath(storePath.getFullPath());
         save(fileInfo);
 
-        return ResultVO.suc(fileInfo);
+        return fileInfo;
     }
 
     @Override
-    public ResultVO<FmsFile> removeFileById(String id) {
+    public void removeFileById(String id) {
         // 查询文件信息
         FmsFile file = getById(id);
         if (file == null) {
@@ -71,12 +70,10 @@ public class FmsFileServiceImpl extends ServiceImpl<FmsFileMapper, FmsFile> impl
             e.printStackTrace();
             throw new OperationFailureException("文件删除失败");
         }
-
-        return ResultVO.suc();
     }
 
     @Override
-    public ResultVO<FmsFile> getFileById(String id) {
+    public FmsFile getFileById(String id) {
         FmsFile file = getById(id);
         if (file == null) {
             throw new ResourceNotFoundException("文件信息未找到");
@@ -84,16 +81,16 @@ public class FmsFileServiceImpl extends ServiceImpl<FmsFileMapper, FmsFile> impl
             file.setUrl(fastDFSUtil.getRestAccessUrl(file.getPath()));
         }
 
-        return ResultVO.suc(file);
+        return file;
     }
 
     @Override
-    public ResultVO<Page<FmsFile>> pageFile(Page<FmsFile> page) {
+    public Page<FmsFile> pageFile(Page<FmsFile> page) {
         // 分页查询
         Page<FmsFile> filePage = page(page);
         // 添加url
         filePage.getRecords().forEach(file -> file.setUrl(fastDFSUtil.getRestAccessUrl(file.getPath())));
-        return ResultVO.suc(filePage);
+        return filePage;
     }
 
     @Override
@@ -116,7 +113,7 @@ public class FmsFileServiceImpl extends ServiceImpl<FmsFileMapper, FmsFile> impl
     }
 
     @Override
-    public ResultVO<FmsFile> saveContentFile(String content, String extension) {
+    public FmsFile saveContentFile(String content, String extension) {
         // 保存文本文件
         byte[] contentBytes = content.getBytes(StandardCharsets.UTF_8);
         StorePath storePath = fastDFSUtil.uploadFile(contentBytes, extension);
@@ -128,7 +125,7 @@ public class FmsFileServiceImpl extends ServiceImpl<FmsFileMapper, FmsFile> impl
         fileInfo.setPath(storePath.getFullPath());
         save(fileInfo);
 
-        return ResultVO.suc(fileInfo);
+        return fileInfo;
     }
 
 }

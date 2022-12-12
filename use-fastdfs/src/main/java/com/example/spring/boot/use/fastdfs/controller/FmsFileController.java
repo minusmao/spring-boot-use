@@ -34,15 +34,16 @@ public class FmsFileController {
     public ResultVO<FmsFile> uploadFile(
             @ApiParam("文件") @RequestPart MultipartFile file
     ) {
-        return fmsFileService.uploadFile(file);
+        return ResultVO.suc(fmsFileService.uploadFile(file));
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "API-02-删除文件")
-    public ResultVO<FmsFile> removeFileById(
+    public ResultVO<Object> removeFileById(
             @ApiParam("主键id") @PathVariable String id
     ) {
-        return fmsFileService.removeFileById(id);
+        fmsFileService.removeFileById(id);
+        return ResultVO.suc();
     }
 
     @GetMapping("/{id}")
@@ -50,7 +51,7 @@ public class FmsFileController {
     public ResultVO<FmsFile> getFileById(
             @ApiParam("主键id") @PathVariable String id
     ) {
-        return fmsFileService.getFileById(id);
+        return ResultVO.suc(fmsFileService.getFileById(id));
     }
 
     @GetMapping("/{current}/{size}")
@@ -59,7 +60,7 @@ public class FmsFileController {
             @ApiParam("页码") @PathVariable Long current,
             @ApiParam("页大小") @PathVariable Long size
     ) {
-        return fmsFileService.pageFile(new Page<>(current, size));
+        return ResultVO.suc(fmsFileService.pageFile(new Page<>(current, size)));
     }
 
     @GetMapping("/download/{id}")
@@ -76,7 +77,7 @@ public class FmsFileController {
             @ApiParam("文本内容") @RequestParam String content,
             @ApiParam("文件扩展名（默认为txt）") @RequestParam(defaultValue = "txt") String extension
     ) {
-        return fmsFileService.saveContentFile(content, extension);
+        return ResultVO.suc(fmsFileService.saveContentFile(content, extension));
     }
 
 }
