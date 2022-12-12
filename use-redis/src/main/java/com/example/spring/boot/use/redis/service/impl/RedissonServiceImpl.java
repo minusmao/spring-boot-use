@@ -27,7 +27,7 @@ public class RedissonServiceImpl implements RedissonService {
     // 读写锁key
     private final String READE_WRITE_LOCK_KEY = "READE_WRITE_LOCK";
 
-    // 信号量key（需提前设置到redis中）
+    // 信号量key
     private final String SEMAPHORE_KEY = "SEMAPHORE";
 
     // 闭锁key
@@ -37,8 +37,8 @@ public class RedissonServiceImpl implements RedissonService {
 
     @PostConstruct
     public void init() {
-        // 设置信号量到redis
-        redisTemplate.opsForValue().set("SEMAPHORE", 3);
+        // 设置初始信号量到redis
+        redisTemplate.opsForValue().set(SEMAPHORE_KEY, 3);
     }
 
     @Override

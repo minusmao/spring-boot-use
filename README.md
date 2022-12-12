@@ -6,18 +6,18 @@
 
 ## 模块功能
 
-| 模块               | 功能点                         |
-|------------------|-----------------------------|
-| use-async        | 异步注解、线程池、异步编排、异步管理器         |
-| use-fastdfs      | 对接FastDFS服务：上传、删除、读取、保存文本文件 |
-| use-file         | 文件上传、下载、配合nginx文件代理的权限服务    |
-| use-ftp          | 对接FTP服务：上传、下载、ftp连接池        |
-| use-mybatis-plus | 增删改查、分页、自动填充、代码生成器、全局异常处理   |
-| use-redis        | 对接Redis服务：Lettuce框架、redisson框架、分布式锁 |
-| use-schedule     | 基于注解的定时任务、基于接口的定时任务管理器     |
-| use-swagger      | 接口注解、类注解、分组配置               |
-| use-valid        | 方法参数校验、实体参数校验、自定义校验、手动校验          |
-| use-websocket    | websocket实现、自定义jackson框架工具类      |
+| 模块               | 功能点                                 |
+|------------------|-------------------------------------|
+| use-async        | 异步注解、线程池、异步编排、异步管理器                 |
+| use-fastdfs      | 对接FastDFS服务：上传、删除、读取、保存文本文件         |
+| use-file         | 文件上传、下载、配合nginx文件代理的权限服务            |
+| use-ftp          | 对接FTP服务：上传、下载、ftp连接池                |
+| use-mybatis-plus | 增删改查、分页、自动填充、代码生成器、全局异常处理           |
+| use-redis        | 对接Redis服务：Lettuce框架、Redisson框架、分布式锁 |
+| use-schedule     | 基于注解的定时任务、基于接口的定时任务管理器              |
+| use-swagger      | 接口注解、类注解、分组配置                       |
+| use-valid        | 方法参数校验、实体参数校验、自定义校验、手动校验            |
+| use-websocket    | websocket实现、自定义jackson框架工具类         |
 
 ## 环境版本
 
@@ -34,7 +34,7 @@
 | commons-pool2  | 2.4.2  | 连接池工具        |
 | fastdfs-client | 1.27.1 | FastDFS服务客户端 |
 | hutool         | 5.8.10 | Hutool工具     |
-| redisson       | 3.18.1 | 分布式Redis框架 |
+| redisson       | 3.18.1 | 分布式Redis框架   |
 
 ## 注意事项
 
