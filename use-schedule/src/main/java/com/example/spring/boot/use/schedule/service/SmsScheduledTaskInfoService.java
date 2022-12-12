@@ -3,7 +3,6 @@ package com.example.spring.boot.use.schedule.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.spring.boot.use.schedule.entity.SmsScheduledTaskInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.spring.boot.use.schedule.model.ResultVO;
 
 /**
  * <p>
@@ -15,10 +14,10 @@ import com.example.spring.boot.use.schedule.model.ResultVO;
  */
 public interface SmsScheduledTaskInfoService extends IService<SmsScheduledTaskInfo> {
 
-    ResultVO<Object> updateTaskInfo(SmsScheduledTaskInfo taskInfo);
+    SmsScheduledTaskInfo updateTaskInfo(SmsScheduledTaskInfo taskInfo);
 
-    ResultVO<SmsScheduledTaskInfo> getTaskInfoById(String id);
+    SmsScheduledTaskInfo getTaskInfoById(String id);
 
-    ResultVO<Page<SmsScheduledTaskInfo>> pageTaskInfo(Page<SmsScheduledTaskInfo> page);
+    Page<SmsScheduledTaskInfo> pageTaskInfo(Page<SmsScheduledTaskInfo> page);
 
 }

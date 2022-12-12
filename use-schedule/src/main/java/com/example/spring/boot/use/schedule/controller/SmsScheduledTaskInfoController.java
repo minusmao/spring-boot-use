@@ -31,8 +31,8 @@ public class SmsScheduledTaskInfoController {
 
     @PutMapping
     @ApiOperation(value = "API-01-更新定时任务信息")
-    public ResultVO<Object> updateTaskInfo(@Validated @RequestBody SmsScheduledTaskInfo taskInfo) {
-        return smsScheduledTaskInfoService.updateTaskInfo(taskInfo);
+    public ResultVO<SmsScheduledTaskInfo> updateTaskInfo(@Validated @RequestBody SmsScheduledTaskInfo taskInfo) {
+        return ResultVO.suc(smsScheduledTaskInfoService.updateTaskInfo(taskInfo));
     }
 
     @GetMapping("/{id}")
@@ -40,7 +40,7 @@ public class SmsScheduledTaskInfoController {
     public ResultVO<SmsScheduledTaskInfo> getTaskInfoById(
             @ApiParam("主键id") @PathVariable String id
     ) {
-        return smsScheduledTaskInfoService.getTaskInfoById(id);
+        return ResultVO.suc(smsScheduledTaskInfoService.getTaskInfoById(id));
     }
 
     @GetMapping("/{current}/{size}")
@@ -49,7 +49,7 @@ public class SmsScheduledTaskInfoController {
             @ApiParam("页码") @PathVariable Long current,
             @ApiParam("页大小") @PathVariable Long size
     ) {
-        return smsScheduledTaskInfoService.pageTaskInfo(new Page<>(current, size));
+        return ResultVO.suc(smsScheduledTaskInfoService.pageTaskInfo(new Page<>(current, size)));
     }
 
 }

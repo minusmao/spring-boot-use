@@ -3,7 +3,6 @@ package com.example.spring.boot.use.schedule.service.impl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.spring.boot.use.schedule.entity.SmsScheduledTaskInfo;
 import com.example.spring.boot.use.schedule.mapper.SmsScheduledTaskInfoMapper;
-import com.example.spring.boot.use.schedule.model.ResultVO;
 import com.example.spring.boot.use.schedule.schedule.ScheduledTaskManager;
 import com.example.spring.boot.use.schedule.service.SmsScheduledTaskInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -30,7 +29,7 @@ public class SmsScheduledTaskInfoServiceImpl extends ServiceImpl<SmsScheduledTas
 
     @Transactional
     @Override
-    public ResultVO<Object> updateTaskInfo(SmsScheduledTaskInfo taskInfo) {
+    public SmsScheduledTaskInfo updateTaskInfo(SmsScheduledTaskInfo taskInfo) {
         // 校验cron表达式是否合法
         if (!CronExpression.isValidExpression(taskInfo.getCron())) {
             throw new IllegalArgumentException("任务键" + taskInfo.getTaskKey() + "指定cron表达式不合法：" + taskInfo.getCron());
@@ -43,17 +42,17 @@ public class SmsScheduledTaskInfoServiceImpl extends ServiceImpl<SmsScheduledTas
         } else if (taskInfo.getStatus() == 1){
             scheduledTaskManager.start(newTaskInfo.getTaskKey(), taskInfo.getCron());
         }
-        return ResultVO.suc();
+        return taskInfo;
     }
 
     @Override
-    public ResultVO<SmsScheduledTaskInfo> getTaskInfoById(String id) {
-        return ResultVO.suc(getById(id));
+    public SmsScheduledTaskInfo getTaskInfoById(String id) {
+        return getById(id);
     }
 
     @Override
-    public ResultVO<Page<SmsScheduledTaskInfo>> pageTaskInfo(Page<SmsScheduledTaskInfo> page) {
-        return ResultVO.suc(page(page));
+    public Page<SmsScheduledTaskInfo> pageTaskInfo(Page<SmsScheduledTaskInfo> page) {
+        return page(page);
     }
 
 }
