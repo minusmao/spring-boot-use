@@ -25,7 +25,7 @@ public class UploadServiceImpl implements UploadService {
     private String filePath;
 
     @Override
-    public ResultVO<FileInfoVO> uploadFile(MultipartFile file) {
+    public FileInfoVO uploadFile(MultipartFile file) {
         // 保存文件到本地
         if (!FileUtil.fileWrite(file, filePath)) {
             throw new OperationFailureException("文件上传失败");
@@ -36,11 +36,11 @@ public class UploadServiceImpl implements UploadService {
         fileInfo.setContentType(file.getContentType());
         fileInfo.setFileSize(file.getSize());
 
-        return ResultVO.suc(fileInfo);
+        return fileInfo;
     }
 
     @Override
-    public ResultVO<List<FileInfoVO>> uploadFiles(MultipartFile file1, MultipartFile file2) {
+    public List<FileInfoVO> uploadFiles(MultipartFile file1, MultipartFile file2) {
         // 保存文件1到本地
         if (!FileUtil.fileWrite(file1, filePath)) {
             throw new OperationFailureException("文件上传失败");
@@ -65,7 +65,7 @@ public class UploadServiceImpl implements UploadService {
         fileInfos.add(fileInfo1);
         fileInfos.add(fileInfo2);
 
-        return ResultVO.suc(fileInfos);
+        return fileInfos;
     }
 
 }

@@ -32,7 +32,7 @@ public class UploadController {
     public ResultVO<FileInfoVO> uploadFile(
             @ApiParam("文件") @RequestPart MultipartFile file
     ) {
-        return uploadService.uploadFile(file);
+        return ResultVO.suc(uploadService.uploadFile(file));
     }
 
     @PostMapping("/files")
@@ -41,7 +41,7 @@ public class UploadController {
             @ApiParam("文件1") @RequestPart MultipartFile file1,
             @ApiParam("文件2") @RequestPart MultipartFile file2
     ) {
-        return uploadService.uploadFiles(file1, file2);
+        return ResultVO.suc(uploadService.uploadFiles(file1, file2));
     }
 
 }

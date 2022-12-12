@@ -1,7 +1,6 @@
 package com.example.spring.boot.use.file.service;
 
 import com.example.spring.boot.use.file.model.FileInfoVO;
-import com.example.spring.boot.use.file.model.ResultVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -14,8 +13,8 @@ import java.util.List;
  */
 public interface UploadService {
 
-    ResultVO<FileInfoVO> uploadFile(MultipartFile file);
+    FileInfoVO uploadFile(MultipartFile file);
 
-    ResultVO<List<FileInfoVO>> uploadFiles(MultipartFile file1, MultipartFile file2);
+    List<FileInfoVO> uploadFiles(MultipartFile file1, MultipartFile file2);
 
 }
