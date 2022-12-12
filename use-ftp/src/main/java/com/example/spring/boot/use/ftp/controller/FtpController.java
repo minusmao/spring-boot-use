@@ -13,12 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-
 /**
  * FTP
  *
- * @author 26307
+ * @author minus
  * @since 2022/11/26 20:27
  */
 @RestController
@@ -42,7 +40,7 @@ public class FtpController {
     public ResultVO<FileInfoVO> uploadFile(
             @ApiParam("文件") @RequestPart MultipartFile file
     ) {
-        return ftpService.uploadFile(file);
+        return ResultVO.suc(ftpService.uploadFile(file));
     }
 
 }

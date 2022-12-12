@@ -2,12 +2,8 @@ package com.example.spring.boot.use.ftp.service.impl;
 
 import com.example.spring.boot.use.ftp.common.exception.ResourceNotFoundException;
 import com.example.spring.boot.use.ftp.model.FileInfoVO;
-import com.example.spring.boot.use.ftp.model.ResultVO;
 import com.example.spring.boot.use.ftp.service.FtpService;
 import com.example.spring.boot.use.ftp.util.FtpUtil;
-import org.apache.commons.net.ftp.FTP;
-import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPReply;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -62,7 +58,7 @@ public class FtpServiceImpl implements FtpService {
     }
 
     @Override
-    public ResultVO<FileInfoVO> uploadFile(MultipartFile file) {
+    public FileInfoVO uploadFile(MultipartFile file) {
         // 上传到FTP
         String filename = ftpUtil.uploadToFtp(file);
         // 获取文件信息
@@ -71,7 +67,7 @@ public class FtpServiceImpl implements FtpService {
         fileInfo.setContentType(file.getContentType());
         fileInfo.setFileSize(file.getSize());
 
-        return ResultVO.suc(fileInfo);
+        return fileInfo;
     }
 
 }
