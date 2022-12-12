@@ -3,7 +3,6 @@ package com.example.spring.boot.use.cache.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.spring.boot.use.cache.entity.PmsClass;
-import com.example.spring.boot.use.cache.model.ResultVO;
 
 /**
  * <p>
@@ -15,14 +14,14 @@ import com.example.spring.boot.use.cache.model.ResultVO;
  */
 public interface PmsClassService extends IService<PmsClass> {
 
-    ResultVO<Object> saveClass(PmsClass pmsClass);
+    void saveClass(PmsClass pmsClass);
 
-    ResultVO<Object> removeClass(String id);
+    void removeClass(String id);
 
-    ResultVO<Object> updateClass(PmsClass pmsClass);
+    PmsClass updateClass(PmsClass pmsClass);
 
-    ResultVO<PmsClass> getClassById(String id);
+    PmsClass getClassById(String id);
 
-    ResultVO<Page<PmsClass>> pageClass(Page<PmsClass> pmsClassPage);
+    Page<PmsClass> pageClass(Page<PmsClass> pmsClassPage);
 
 }

@@ -30,3 +30,8 @@ spring:
     type: redis    # 设置simple则使用本地缓存（底层使用ConcurrentHashMap）
     redis:
       cache-null-values: true    # 缓存null值，防止缓存穿透，默认已开启
+      time-to-live: 3600000      # 设置缓存过期时间（单位：毫秒），默认不过期
+logging:
+  level:
+    root: info    # 根目录（所有），不配置时默认为 info
+    com.example.spring.boot.use.cache.mapper: debug    # 配置 Mapper 层的日志等级，可看见生成的 SQL 语句

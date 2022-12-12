@@ -9,6 +9,7 @@
 | 模块               | 功能点                                 |
 |------------------|-------------------------------------|
 | use-async        | 异步注解、线程池、异步编排、异步管理器                 |
+| use-cache        | SpringCache基本使用、SpringCache整合Redis |
 | use-fastdfs      | 对接FastDFS服务：上传、删除、读取、保存文本文件         |
 | use-file         | 文件上传、下载、配合nginx文件代理的权限服务            |
 | use-ftp          | 对接FTP服务：上传、下载、ftp连接池                |

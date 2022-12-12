@@ -5,10 +5,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.spring.boot.use.cache.common.exception.OperationFailureException;
 import com.example.spring.boot.use.cache.entity.PmsClass;
 import com.example.spring.boot.use.cache.mapper.PmsClassMapper;
-import com.example.spring.boot.use.cache.model.ResultVO;
 import com.example.spring.boot.use.cache.service.PmsClassService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -25,28 +25,27 @@ import org.springframework.stereotype.Service;
 public class PmsClassServiceImpl extends ServiceImpl<PmsClassMapper, PmsClass> implements PmsClassService {
 
     @Override
-    public ResultVO<Object> saveClass(PmsClass pmsClass) {
+    public void saveClass(PmsClass pmsClass) {
         if (!save(pmsClass)) {
             throw new OperationFailureException("新增失败");
         }
-        return ResultVO.suc();
     }
 
-    @CacheEvict()
+    @CacheEvict(key = "'getClassById:'+#id")    // 删除缓存
     @Override
-    public ResultVO<Object> removeClass(String id) {
+    public void removeClass(String id) {
         if (!removeById(id)) {
             throw new OperationFailureException("删除失败");
         }
-        return ResultVO.suc();
     }
 
+    @CachePut(key = "'getClassById:'+#pmsClass.id", condition = "#pmsClass.id!='1'")    // 将方法结果更新至缓存
     @Override
-    public ResultVO<Object> updateClass(PmsClass pmsClass) {
+    public PmsClass updateClass(PmsClass pmsClass) {
         if (!updateById(pmsClass)) {
             throw new OperationFailureException("更新失败");
         }
-        return ResultVO.suc();
+        return pmsClass;
     }
 
     /*
@@ -56,17 +55,16 @@ public class PmsClassServiceImpl extends ServiceImpl<PmsClassMapper, PmsClass> i
             condition -> 符合条件的才缓存，支持EL表达式
             unless -> 符合条件的不缓存，支持EL表达式
             sync -> 加本地锁，防止缓存击穿
-        默认的key生成策略是：类名+方法名+参数
      */
-    @Cacheable(sync = true)
+    @Cacheable(key = "'getClassById:'+#id", condition = "#id!='1'", sync = true)    // 保存缓存
     @Override
-    public ResultVO<PmsClass> getClassById(String id) {
-        return ResultVO.suc(getById(id));
+    public PmsClass getClassById(String id) {
+        return getById(id);
     }
 
     @Override
-    public ResultVO<Page<PmsClass>> pageClass(Page<PmsClass> pmsClassPage) {
-        return ResultVO.suc(page(pmsClassPage));
+    public Page<PmsClass> pageClass(Page<PmsClass> pmsClassPage) {
+        return page(pmsClassPage);
     }
 
 }
