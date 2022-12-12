@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.spring.boot.use.mybatis.plus.common.exception.OperationFailureException;
 import com.example.spring.boot.use.mybatis.plus.entity.PmsClass;
 import com.example.spring.boot.use.mybatis.plus.mapper.PmsClassMapper;
-import com.example.spring.boot.use.mybatis.plus.model.ResultVO;
 import com.example.spring.boot.use.mybatis.plus.service.PmsClassService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -21,37 +20,35 @@ import org.springframework.stereotype.Service;
 public class PmsClassServiceImpl extends ServiceImpl<PmsClassMapper, PmsClass> implements PmsClassService {
 
     @Override
-    public ResultVO<Object> saveClass(PmsClass pmsClass) {
+    public void saveClass(PmsClass pmsClass) {
         if (!save(pmsClass)) {
             throw new OperationFailureException("新增失败");
         }
-        return ResultVO.suc();
     }
 
     @Override
-    public ResultVO<Object> removeClass(String id) {
+    public void removeClass(String id) {
         if (!removeById(id)) {
             throw new OperationFailureException("删除失败");
         }
-        return ResultVO.suc();
     }
 
     @Override
-    public ResultVO<Object> updateClass(PmsClass pmsClass) {
+    public PmsClass updateClass(PmsClass pmsClass) {
         if (!updateById(pmsClass)) {
             throw new OperationFailureException("更新失败");
         }
-        return ResultVO.suc();
+        return pmsClass;
     }
 
     @Override
-    public ResultVO<PmsClass> getClassById(String id) {
-        return ResultVO.suc(getById(id));
+    public PmsClass getClassById(String id) {
+        return getById(id);
     }
 
     @Override
-    public ResultVO<Page<PmsClass>> pageClass(Page<PmsClass> pmsClassPage) {
-        return ResultVO.suc(page(pmsClassPage));
+    public Page<PmsClass> pageClass(Page<PmsClass> pmsClassPage) {
+        return page(pmsClassPage);
     }
 
 }

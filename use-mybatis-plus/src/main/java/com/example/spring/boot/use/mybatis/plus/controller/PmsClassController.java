@@ -30,7 +30,8 @@ public class PmsClassController extends BaseController {
     @PostMapping
     @ApiOperation(value = "API-01-新增班级")
     public ResultVO<Object> saveClass(@RequestBody PmsClass pmsClass) {
-        return pmsClassService.saveClass(pmsClass);
+        pmsClassService.saveClass(pmsClass);
+        return ResultVO.suc();
     }
 
     @DeleteMapping("/{id}")
@@ -38,13 +39,14 @@ public class PmsClassController extends BaseController {
     public ResultVO<Object> removeClass(
             @ApiParam("主键id") @PathVariable String id
     ) {
-        return pmsClassService.removeClass(id);
+        pmsClassService.removeClass(id);
+        return ResultVO.suc();
     }
 
     @PutMapping
     @ApiOperation(value = "API-03-更新班级")
-    public ResultVO<Object> updateClass(@RequestBody PmsClass pmsClass) {
-        return pmsClassService.updateClass(pmsClass);
+    public ResultVO<PmsClass> updateClass(@RequestBody PmsClass pmsClass) {
+        return ResultVO.suc(pmsClassService.updateClass(pmsClass));
     }
 
     @GetMapping("/{id}")
@@ -52,7 +54,7 @@ public class PmsClassController extends BaseController {
     public ResultVO<PmsClass> getClassById(
             @ApiParam("主键id") @PathVariable String id
     ) {
-        return pmsClassService.getClassById(id);
+        return ResultVO.suc(pmsClassService.getClassById(id));
     }
 
     @GetMapping("/{current}/{size}")
@@ -61,7 +63,7 @@ public class PmsClassController extends BaseController {
             @ApiParam("页码") @PathVariable Long current,
             @ApiParam("页大小") @PathVariable Long size
     ) {
-        return pmsClassService.pageClass(new Page<>(current, size));
+        return ResultVO.suc(pmsClassService.pageClass(new Page<>(current, size)));
     }
 
 }

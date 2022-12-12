@@ -3,7 +3,6 @@ package com.example.spring.boot.use.mybatis.plus.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.spring.boot.use.mybatis.plus.entity.PmsStudent;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.spring.boot.use.mybatis.plus.model.ResultVO;
 
 /**
  * <p>
@@ -15,14 +14,14 @@ import com.example.spring.boot.use.mybatis.plus.model.ResultVO;
  */
 public interface PmsStudentService extends IService<PmsStudent> {
 
-    ResultVO<Object> saveStudent(PmsStudent pmsStudent);
+    void saveStudent(PmsStudent pmsStudent);
 
-    ResultVO<Object> removeStudent(String id);
+    void removeStudent(String id);
 
-    ResultVO<Object> updateStudent(PmsStudent pmsStudent);
+    PmsStudent updateStudent(PmsStudent pmsStudent);
 
-    ResultVO<PmsStudent> getStudentById(String id);
+    PmsStudent getStudentById(String id);
 
-    ResultVO<Page<PmsStudent>> pageStudent(Page<PmsStudent> pmsStudentPage);
+    Page<PmsStudent> pageStudent(Page<PmsStudent> pmsStudentPage);
 
 }

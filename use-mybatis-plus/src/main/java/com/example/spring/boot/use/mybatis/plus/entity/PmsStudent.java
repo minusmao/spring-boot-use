@@ -1,5 +1,7 @@
 package com.example.spring.boot.use.mybatis.plus.entity;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import com.baomidou.mybatisplus.annotation.FieldStrategy;
@@ -20,8 +22,9 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "PmsStudent对象", description = "人员管理-学生")
-public class PmsStudent extends BaseEntity {
+public class PmsStudent extends BaseEntity implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "学号")
