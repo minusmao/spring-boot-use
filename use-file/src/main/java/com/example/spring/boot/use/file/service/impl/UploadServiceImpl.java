@@ -3,7 +3,6 @@ package com.example.spring.boot.use.file.service.impl;
 import com.example.spring.boot.use.file.common.exception.OperationFailureException;
 import com.example.spring.boot.use.file.common.util.FileUtil;
 import com.example.spring.boot.use.file.model.FileInfoVO;
-import com.example.spring.boot.use.file.model.ResultVO;
 import com.example.spring.boot.use.file.service.UploadService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
