@@ -1,8 +1,5 @@
 package com.example.spring.boot.use.redis.config;
 
-import com.example.spring.boot.use.redis.util.JacksonUtil;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;

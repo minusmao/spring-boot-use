@@ -27,9 +27,10 @@ public class RedisSerializerConfig {
         Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
         final ObjectMapper objectMapper = JacksonUtil.generateObjectMapper();
         /*
-            默认RedisTemple反序列化后的到的结果是LinkedHashMap类型，如果要得到需要的类型需要两种办法：
+            默认反序列化后的到的结果是LinkedHashMap类型，如果要得到需要的类型需要两种办法：
               1、拿到结果后利用ObjectMapper对象的convertValue()方法自行类型转换。参考：https://blog.csdn.net/weixin_43888891/article/details/115635641
               2、调用activateDefaultTyping()方法，设置序列化后的JSON包括对象信息，反序列化就会自动转换为该对象。参考：https://www.cnblogs.com/exmyth/p/13794524.html
+            这里选择第二种方法，第一种只适合手动调用RedisTemplate的情况
         */
         objectMapper.activateDefaultTyping(objectMapper.getPolymorphicTypeValidator(),
                 ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
