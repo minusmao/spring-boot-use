@@ -30,18 +30,18 @@ services:
     command: [ "redis-server","/usr/local/etc/redis/redis.conf" ]
     environment:
       - TZ=Asia/Shanghai
-#  rabbitmq:
-#    image: rabbitmq:3.8.3-management
-#    restart: always
-#    privileged: true
-#    ports:
-#      - 5672:5672
-#      - 15672:15672
-#    volumes:
-#      - ./rabbitmq/data/:/var/lib/rabbitmq/
-#      - ./rabbitmq/log:/var/log/rabbitmq/
-#    environment:
-#      - TZ=Asia/Shanghai
+  rabbitmq:
+    image: rabbitmq:3.8.3-management
+    restart: always
+    privileged: true
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ./rabbitmq/data/:/var/lib/rabbitmq/
+      - ./rabbitmq/log:/var/log/rabbitmq/
+    environment:
+      - TZ=Asia/Shanghai
   nginx:
     image: nginx:1.22.1
     restart: always

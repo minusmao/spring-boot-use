@@ -15,6 +15,7 @@
         <module>use-websocket</module>
         <module>use-redis</module>
         <module>use-cache</module>
+        <module>use-rabbitmq</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

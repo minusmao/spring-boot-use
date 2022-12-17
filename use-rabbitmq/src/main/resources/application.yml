@@ -1,0 +1,22 @@
+server:
+  port: 30000
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # spring-boot 2.6.0 以上默认为PATH_PATTERN_PARSER路径匹配，与swagger不兼容
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
+    virtual-host: /    # 虚拟主机（RabbitMQ可以内部设置多个虚拟主机，用来隔离不同环境），默认为/
+    # 开启confirmCallback功能，旧版本使用publisher-confirms: true
+    publisher-confirm-type: correlated
+    # 开启returnCallback功能
+    publisher-returns: true
+    template:
+      mandatory: true    # 没找到匹配的队列，返回给生产者的returnCallback函数。如果设置为false则直接删除该消息
+    listener:
+      simple:
+        acknowledge-mode: manual    # 设置消息手动ack确认
+

@@ -19,6 +19,7 @@
 | use-swagger      | 接口注解、类注解、分组配置                       |
 | use-valid        | 方法参数校验、实体参数校验、自定义校验、手动校验            |
 | use-websocket    | websocket实现、自定义jackson框架工具类         |
+| use-rabbitmq     | 对接RabbitMQ服务：可靠投递 |
 
 ## 环境版本
 
