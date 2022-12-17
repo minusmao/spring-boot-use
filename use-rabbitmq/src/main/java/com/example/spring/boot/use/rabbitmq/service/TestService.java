@@ -10,4 +10,6 @@ public interface TestService {
 
     void testSendMail(String sender, String receiver, String content);
 
+    void testSendMsgDelay(String sender, String receiver, String content);
+
 }

@@ -26,14 +26,25 @@ public class TestController {
     @Autowired
     private TestService testService;
 
-    @PostMapping
+    @PostMapping("/mail")
     @ApiOperation(value = "API-01-测试（消息队列发送邮件模拟）")
     public ResultVO<Object> testSendMail(
             @ApiParam("发送者") @RequestParam String sender,
             @ApiParam("接收者") @RequestParam String receiver,
-            @ApiParam("油价内容") @RequestParam String content
+            @ApiParam("邮件内容") @RequestParam String content
     ) {
         testService.testSendMail(sender, receiver, content);
+        return ResultVO.suc();
+    }
+
+    @PostMapping("/msg")
+    @ApiOperation(value = "API-01-测试（消息队列发送短信模拟，且延时1分钟）")
+    public ResultVO<Object> testSendMsgDelay(
+            @ApiParam("发送者") @RequestParam String sender,
+            @ApiParam("接收者") @RequestParam String receiver,
+            @ApiParam("短信内容") @RequestParam String content
+    ) {
+        testService.testSendMsgDelay(sender, receiver, content);
         return ResultVO.suc();
     }
 

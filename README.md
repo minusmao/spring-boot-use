@@ -14,12 +14,12 @@
 | use-file         | 文件上传、下载、配合nginx文件代理的权限服务            |
 | use-ftp          | 对接FTP服务：上传、下载、ftp连接池                |
 | use-mybatis-plus | 增删改查、分页、自动填充、代码生成器、全局异常处理           |
+| use-rabbitmq     | 对接RabbitMQ服务：可靠投递、延时队列实现 |
 | use-redis        | 对接Redis服务：Lettuce框架、Redisson框架、分布式锁 |
 | use-schedule     | 基于注解的定时任务、基于接口的定时任务管理器              |
 | use-swagger      | 接口注解、类注解、分组配置                       |
 | use-valid        | 方法参数校验、实体参数校验、自定义校验、手动校验            |
 | use-websocket    | websocket实现、自定义jackson框架工具类         |
-| use-rabbitmq     | 对接RabbitMQ服务：可靠投递 |
 
 ## 环境版本
 

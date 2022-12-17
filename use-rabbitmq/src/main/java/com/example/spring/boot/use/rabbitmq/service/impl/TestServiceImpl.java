@@ -2,6 +2,7 @@ package com.example.spring.boot.use.rabbitmq.service.impl;
 
 import com.example.spring.boot.use.rabbitmq.common.RabbitConst;
 import com.example.spring.boot.use.rabbitmq.model.dto.MailDTO;
+import com.example.spring.boot.use.rabbitmq.model.dto.MsgDTO;
 import com.example.spring.boot.use.rabbitmq.service.TestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
@@ -34,6 +35,19 @@ class TestServiceImpl implements TestService {
                 RabbitConst.EMAIL_EXCHANGE_NAME,
                 RabbitConst.EMAIL_ROUTE_KEY,
                 new MailDTO(sender, receiver, content, LocalDateTime.now()),
+                correlationData
+        );
+    }
+
+    @Override
+    public void testSendMsgDelay(String sender, String receiver, String content) {
+        // 消息的唯一标识，发布消息时使用，存储在消息的headers中
+        CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
+        log.info("发送消息到短信队列，消息id为{}", correlationData.getId());
+        rabbitTemplate.convertAndSend(
+                RabbitConst.MSG_EXCHANGE_NAME,
+                RabbitConst.MSG_ROUTE_KEY,
+                new MsgDTO(sender, receiver, content, LocalDateTime.now()),
                 correlationData
         );
     }
