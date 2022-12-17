@@ -1,10 +1,9 @@
 package com.example.spring.boot.use.redis.util;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -49,20 +48,10 @@ public class JacksonUtil {
         // 设置基本类型不能为null值，默认基本类型在JSON为null时，会自动处理，这里可以设置为不能为null且抛出异常
 //        objectMapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, true);
         // 设置LocalDateTime序列化支持，参考文档：https://juejin.cn/post/7025160932653268999
-        JavaTimeModule javaTimeModule = new JavaTimeModule();
-        javaTimeModule.addSerializer(LocalDateTime.class,
-                new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        javaTimeModule.addSerializer(LocalDate.class,
-                new LocalDateSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        javaTimeModule.addSerializer(LocalTime.class,
-                new LocalTimeSerializer(DateTimeFormatter.ofPattern("HH:mm:ss")));
-        javaTimeModule.addDeserializer(LocalDateTime.class,
-                new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        javaTimeModule.addDeserializer(LocalDate.class,
-                new LocalDateDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        javaTimeModule.addDeserializer(LocalTime.class,
-                new LocalTimeDeserializer(DateTimeFormatter.ofPattern("HH:mm:ss")));
-        objectMapper.registerModule(javaTimeModule);
+        // 设置LocalDateTime序列化支持，2022-12-18修改，此方法更方便，参考文档：https://blog.csdn.net/sswltt/article/details/108868480
+        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.registerModule(new JavaTimeModule());
 
         return objectMapper;
     }
