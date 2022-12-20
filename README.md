@@ -13,6 +13,7 @@
 | use-fastdfs      | 对接FastDFS服务：上传、删除、读取、保存文本文件         |
 | use-file         | 文件上传、下载、配合nginx文件代理的权限服务            |
 | use-ftp          | 对接FTP服务：上传、下载、ftp连接池                |
+| use-mongo        | 对接MongoDB数据库：增删改查 |
 | use-mybatis-plus | 增删改查、分页、自动填充、代码生成器、全局异常处理           |
 | use-rabbitmq     | 对接RabbitMQ服务：可靠投递、延时队列实现 |
 | use-redis        | 对接Redis服务：Lettuce框架、Redisson框架、分布式锁 |

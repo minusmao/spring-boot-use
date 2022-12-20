@@ -16,6 +16,7 @@
         <module>use-redis</module>
         <module>use-cache</module>
         <module>use-rabbitmq</module>
+        <module>use-mongo</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

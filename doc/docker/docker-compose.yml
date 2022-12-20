@@ -114,3 +114,29 @@ services:
       - TZ=Asia/Shanghai
       - TRACKER_SERVER=192.168.164.130:22122
     command: nginx
+  mongo:
+    image: mongo:6.0.3
+    restart: always
+    privileged: true
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo/db:/data/db           # 挂载数据目录
+      - ./mongo/log:/var/log/mongodb  # 挂载日志目录
+      - ./mongo/config:/etc/mongo     # 挂载配置目录
+    environment:
+      - TZ=Asia/Shanghai
+      - MONGO_INITDB_ROOT_USERNAME=admin     # 管理员账户（记得单独创建账户供项目使用）
+      - MONGO_INITDB_ROOT_PASSWORD=123456    # 管理员密码
+  mongo-express:
+    image: mongo-express:1.0.0-alpha
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo            # MongoDB数据库地址
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin     # MongoDB数据库账户
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=123456    # MongoDB数据库密码
+      - ME_CONFIG_BASICAUTH_USERNAME=mongo        # mongo-express账户
+      - ME_CONFIG_BASICAUTH_PASSWORD=mongo        # mongo-express密码
+

@@ -1,0 +1,17 @@
+server:
+  port: 30000
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # spring-boot 2.6.0 以上默认为PATH_PATTERN_PARSER路径匹配，与swagger不兼容
+  data:
+    mongodb:
+      host: ${MONGO_HOST}
+      port: ${MONGO_PORT}
+      username: ${MONGO_USERNAME}
+      password: ${MONGO_PASSWORD}
+      database: spring_boot_use
+logging:
+  level:
+    root: info    # 根目录（所有），不配置时默认为 info
+    org.springframework.data.mongodb.core: debug    # 配置mongo的日志等级，可看见生成的 SQL 语句
