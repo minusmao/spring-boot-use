@@ -43,6 +43,7 @@ public class FileModelServiceImpl implements FileModelService {
     /**
      * 新增文件<br>
      * <a href="https://www.cnblogs.com/dreamzy996/p/16807073.html">获取文件MD5值</a>
+     *
      * @param file 文件
      * @return 文件信息
      */
@@ -69,6 +70,7 @@ public class FileModelServiceImpl implements FileModelService {
 
     /**
      * 删除文件
+     *
      * @param id 文件id
      */
     @Override
@@ -78,7 +80,8 @@ public class FileModelServiceImpl implements FileModelService {
 
     /**
      * 更新文件名称
-     * @param id 文件id
+     *
+     * @param id   文件id
      * @param name 文件名称
      */
     @Override
@@ -92,6 +95,7 @@ public class FileModelServiceImpl implements FileModelService {
 
     /**
      * 查询文件
+     *
      * @param id 文件id
      * @return 文件信息
      */
@@ -106,6 +110,7 @@ public class FileModelServiceImpl implements FileModelService {
 
     /**
      * 下载文件
+     *
      * @param id 文件id
      * @return 文件
      */

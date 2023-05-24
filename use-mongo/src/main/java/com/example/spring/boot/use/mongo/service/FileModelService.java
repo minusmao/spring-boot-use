@@ -15,6 +15,7 @@ public interface FileModelService {
 
     /**
      * 新增文件
+     *
      * @param file 文件
      * @return 文件信息
      */
@@ -22,13 +23,15 @@ public interface FileModelService {
 
     /**
      * 删除文件
+     *
      * @param id 文件id
      */
     void removeFile(String id);
 
     /**
      * 更新文件名称
-     * @param id 文件id
+     *
+     * @param id   文件id
      * @param name 文件名称
      * @return 更新情况
      */
@@ -36,6 +39,7 @@ public interface FileModelService {
 
     /**
      * 查询文件
+     *
      * @param id 文件id
      * @return 文件信息
      */
@@ -43,6 +47,7 @@ public interface FileModelService {
 
     /**
      * 下载文件
+     *
      * @param id 文件id
      * @return 文件
      */
