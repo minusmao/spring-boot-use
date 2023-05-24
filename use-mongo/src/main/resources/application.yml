@@ -11,6 +11,8 @@ spring:
       username: ${MONGO_USERNAME}
       password: ${MONGO_PASSWORD}
       database: spring_boot_use
+      # 如果用户不在当前数据库，需配置用户所在数据库，参考：https://www.nuomiphp.com/a/stackoverflow/zh/6243047e608f6d19a2144086.html
+      authentication-database: admin
 logging:
   level:
     root: info    # 根目录（所有），不配置时默认为 info
