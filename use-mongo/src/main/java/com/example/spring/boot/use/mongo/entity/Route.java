@@ -3,8 +3,7 @@ package com.example.spring.boot.use.mongo.entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
+import org.springframework.data.annotation.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
@@ -44,15 +43,19 @@ public class Route {
     private String line;
 
     @ApiModelProperty("创建人")
+    @CreatedBy
     private String createPerson;
 
     @ApiModelProperty("创建时间")
-    private LocalDateTime createTime = LocalDateTime.now();
+    @CreatedDate
+    private LocalDateTime createTime;
 
     @ApiModelProperty("更新人")
+    @LastModifiedBy
     private String updatePerson;
 
     @ApiModelProperty("更新时间")
-    private LocalDateTime updateTime = LocalDateTime.now();
+    @LastModifiedDate
+    private LocalDateTime updateTime;
 
 }
