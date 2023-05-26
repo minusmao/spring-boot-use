@@ -1,25 +1,24 @@
 package com.example.spring.boot.use.mongo.service;
 
-import com.example.spring.boot.use.mongo.entity.FileModel;
-import com.mongodb.client.result.UpdateResult;
+import com.example.spring.boot.use.mongo.entity.FileDocument;
+import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * 文件存储（小于16MB）
+ * 文件存储（大于16MB）
  *
  * @author minus
- * @since 2023/05/19 20:57
+ * @since 2023/05/24 20:57
  */
-public interface FileModelService {
+public interface FileDocumentService {
 
     /**
      * 新增文件
-     *
      * @param file 文件
      * @return 文件信息
      */
-    FileModel saveFile(MultipartFile file);
+    FileDocument saveFile(MultipartFile file);
 
     /**
      * 删除文件
@@ -29,21 +28,12 @@ public interface FileModelService {
     void removeFile(String id);
 
     /**
-     * 更新文件名称
-     *
-     * @param id   文件id
-     * @param name 文件名称
-     * @return 更新情况
-     */
-    UpdateResult updateFileName(String id, String name);
-
-    /**
      * 查询文件信息
      *
      * @param id 文件id
      * @return 文件信息
      */
-    FileModel findFile(String id);
+    FileDocument findFile(String id);
 
     /**
      * 下载文件
@@ -51,6 +41,6 @@ public interface FileModelService {
      * @param id 文件id
      * @return 文件
      */
-    ResponseEntity<byte[]> downloadFile(String id);
+    ResponseEntity<GridFsResource> downloadFile(String id);
 
 }

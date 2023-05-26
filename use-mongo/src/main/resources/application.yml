@@ -13,6 +13,10 @@ spring:
       database: spring_boot_use
       # 如果用户不在当前数据库，需配置用户所在数据库，参考：https://www.nuomiphp.com/a/stackoverflow/zh/6243047e608f6d19a2144086.html
       authentication-database: admin
+  servlet:
+    multipart:
+      max-request-size: 100MB    # 设置http请求报文最大限制（默认：10MB）
+      max-file-size: 80MB        # 设置文件上传最大限制（默认：1MB）
 logging:
   level:
     root: info    # 根目录（所有），不配置时默认为 info
