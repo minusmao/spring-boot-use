@@ -11,7 +11,7 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
  * @since 2022/12/7 23:35
  */
 @Configuration
-public class WebsocketConfig {
+public class WebSocketConfig {
 
     /**
      * 这个Bean会自动扫描注册使用@ServerEndpoint注解声明的websocket endpoint

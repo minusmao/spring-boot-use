@@ -1,0 +1,100 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>聊起来</title>
+    <script src="https://cdn.bootcss.com/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.0.min.js"
+            integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        var stompClient = null;
+
+        function setConnected(connected) {
+            document.getElementById("connect").disabled = connected;
+            document.getElementById("disconnect").disabled = !connected;
+            $("#response").html();
+        }
+
+        function connect() {
+            var socket = new SockJS("http://localhost:30000/api/use/websocket/privateServer");
+            stompClient = Stomp.over(socket);
+            stompClient.heartbeat.outgoing = 20000;
+            // client will send heartbeats every 20000ms
+            stompClient.heartbeat.incoming = 0;
+            stompClient.connect({}, function (frame) {
+                setConnected(true);
+                console.log('Connected: ' + frame);
+                stompClient.subscribe('/user/' + document.getElementById('user').value + '/message', function (response) {
+                    var responseData = document.getElementById('responseData');
+                    var p = document.createElement('p');
+                    p.style.wordWrap = 'break-word';
+                    p.appendChild(document.createTextNode(response.body));
+                    responseData.appendChild(p);
+                });
+            });
+        }
+
+        function disconnect() {
+            if (stompClient != null) {
+                stompClient.disconnect();
+            }
+            setConnected(false);
+            console.log("Disconnected");
+        }
+
+        function sendMsg() {
+            var headers = {
+                login: 'mylogin',
+                passcode: 'mypasscode',
+// additional header
+                'accessToken': 'HWPO325J9814GBHJF933'
+            };
+            var content = document.getElementById('content').value;
+            var to = document.getElementById('to').value;
+            stompClient.send("/alone", {'accessToken': 'HWPO325J9814GBHJF933'}, JSON.stringify({
+                'content': content,
+                'to': to
+            }));
+        }
+    </script>
+</head>
+<body onload="disconnect()">
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+<div>
+    <div>
+        <labal>连接用户</labal>
+        <input type="text" id="user"/>
+        <button id="connect" onclick="connect();">Connect</button>
+
+    </div>
+
+    <div>
+        <labal>取消连接</labal>
+        <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
+    </div>
+
+    <div id="conversationDiv">
+        <labal>发送消息</labal>
+        <div>
+            <labal>内容</labal>
+            <input type="text" id="content"/>
+        </div>
+        <div>
+            <labal>发给谁</labal>
+            <input type="text" id="to"/>
+        </div>
+        <button id="sendMsg" onclick="sendMsg();">Send</button>
+
+    </div>
+    <div>
+        <labal>接收到的消息:</labal>
+        <p id="responseData"></p>
+
+    </div>
+</div>
+
+</body>
+</html>

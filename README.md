@@ -6,21 +6,21 @@
 
 ## 模块功能
 
-| 模块               | 功能点                                 |
-|------------------|-------------------------------------|
-| use-async        | 异步注解、线程池、异步编排、异步管理器                 |
-| use-cache        | SpringCache基本使用、SpringCache整合Redis |
-| use-fastdfs      | 对接FastDFS服务：上传、删除、读取、保存文本文件         |
-| use-file         | 文件上传、下载、配合nginx文件代理的权限服务            |
-| use-ftp          | 对接FTP服务：上传、下载、ftp连接池                |
-| use-mongo        | 对接MongoDB数据库：增删改查 |
-| use-mybatis-plus | 增删改查、分页、自动填充、代码生成器、全局异常处理           |
-| use-rabbitmq     | 对接RabbitMQ服务：可靠投递、延时队列实现 |
-| use-redis        | 对接Redis服务：Lettuce框架、Redisson框架、分布式锁 |
-| use-schedule     | 基于注解的定时任务、基于接口的定时任务管理器              |
-| use-swagger      | 接口注解、类注解、分组配置                       |
-| use-valid        | 方法参数校验、实体参数校验、自定义校验、手动校验            |
-| use-websocket    | websocket实现、自定义jackson框架工具类         |
+| 模块               | 功能点                                           |
+|------------------|-----------------------------------------------|
+| use-async        | 异步注解、线程池、异步编排、异步管理器                           |
+| use-cache        | SpringCache基本使用、SpringCache整合Redis            |
+| use-fastdfs      | 对接FastDFS服务：上传、删除、读取、保存文本文件                   |
+| use-file         | 文件上传、下载、配合nginx文件代理的权限服务                      |
+| use-ftp          | 对接FTP服务：上传、下载、ftp连接池                          |
+| use-mongo        | 对接MongoDB数据库：增删改查                             |
+| use-mybatis-plus | 增删改查、分页、自动填充、代码生成器、全局异常处理                     |
+| use-rabbitmq     | 对接RabbitMQ服务：可靠投递、延时队列实现                      |
+| use-redis        | 对接Redis服务：Lettuce框架、Redisson框架、分布式锁           |
+| use-schedule     | 基于注解的定时任务、基于接口的定时任务管理器                        |
+| use-swagger      | 接口注解、类注解、分组配置                                 |
+| use-valid        | 方法参数校验、实体参数校验、自定义校验、手动校验                      |
+| use-websocket    | websocket实现、自定义jackson框架工具类、整合websocket+stomp |
 
 ## 环境版本
 
