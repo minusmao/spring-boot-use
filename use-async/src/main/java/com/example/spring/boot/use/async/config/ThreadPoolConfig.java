@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  * 线程池合理配置：
  *     CPU密集型 -> 核心线程数 = CPU核数 + 1
  *     IO密集型 -> 核心线程数 = CPU核数 / (1 - 阻塞系数)
- *                注：阻塞系数 = 阻塞时间 / 总时间 = IO 耗时 / (IO 耗时 / CPU 耗时)，一般认为在0.8~0.9之间
+ *                注：阻塞系数 = 阻塞时间 / 总时间 = IO 耗时 / (IO 耗时 + CPU 耗时)，一般认为在0.8~0.9之间
  *     参考文档1：https://zhuanlan.zhihu.com/p/407807591
  *     参考文档2：https://blog.csdn.net/weixin_44777693/article/details/95246059
  *
