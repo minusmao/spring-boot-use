@@ -139,4 +139,20 @@ services:
       - ME_CONFIG_MONGODB_ADMINPASSWORD=123456    # MongoDB数据库密码
       - ME_CONFIG_BASICAUTH_USERNAME=mongo        # mongo-express账户
       - ME_CONFIG_BASICAUTH_PASSWORD=mongo        # mongo-express密码
-
+  minio:
+    image: minio/minio:RELEASE.2024-05-01T01-11-10Z
+    restart: "no"
+    privileged: true
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - ./minio/data1:/data1
+      - ./minio/data2:/data2
+      - ./minio/data3:/data3
+      - ./minio/data4:/data4
+    command: server --console-address ":9001" http://minio/data{1...4}
+    environment:
+      - TZ=Asia/Shanghai
+      - MINIO_ACCESS_KEY=admin
+      - MINIO_SECRET_KEY=12345678
